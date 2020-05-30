@@ -8,6 +8,9 @@ import shutil
 not_installed=[]
 installed=[]
 
+def mysql_conf():
+    subprocess.check_call(["./db.sh"])
+
 
 def some_perm():
 
@@ -20,7 +23,7 @@ def some_perm():
 
 def restart_apa():
     try:
-        subprocess.check_output("sudo apt install 123sadcs",stderr=open('/dev/null', 'w'), shell=True)
+        subprocess.check_call("sudo apt install 123sadcs",stderr=open('/dev/null', 'w'), shell=True)
     
     except subprocess.CalledProcessError:
         sys.exit()

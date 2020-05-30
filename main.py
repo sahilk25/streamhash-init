@@ -11,23 +11,7 @@ package_list=["apache2", "mysql-server", "php7.3", "php7.3-cli php7.1-mysql php7
     "redis-server"]
 
 
-
-is_website_exists=path.exists("~/website.zip")
-gg=path.exists("~/website.zip")
-if is_website_exists ==True:
-    print("zip exists")   
-else:
-    print("zip file doesnt exist")
-    sys.exit()
-
-
-
-repo_install(repo_list)
-
-is_installed(package_list)
-
-install(not_installed)
-
+#unzipping the website
 print("Unzipping the website and adding to it's destination")
 is_website_exists=path.exists("~/website.zip")
 gg=path.exists("~/website.zip")
@@ -43,16 +27,34 @@ else:
     sys.exit()
 
 
+
+
+#repo installation
+repo_install(repo_list)
+
+#checking packages
+is_installed(package_list)
+
+#installing packages
+install(not_installed)
+
+#making changes to msql
+print("Configuring mysql")
+subprocess.check_call(["./db.sh"])
+
+
 time.sleep(2)
+#updating apache server
 update_apa()
 
-# CHANGE PATH
-
-# trepalce("max_execution_time = 30","max_execution_time = -1","/home/alpha/Desktop/stream hash/phptest.ini")
-# trepalce("max_input_time​= 60","max_input_time = -1","/home/alpha/Desktop/stream hash/phptest.ini")
-# trepalce("memory_limit = 128M","memory_limit​= -1","/home/alpha/Desktop/stream hash/phptest.ini")
-# trepalce("upload_max_filesize = 2M","upload_max_filesize = 5000M","/home/alpha/Desktop/stream hash/phptest.ini")
-# trepalce("post_max_size = 8M","post_max_size​ =3000M","/home/alpha/Desktop/stream hash/phptest.ini")
+time.sleep(1)
+#updating php file
+print("updating php.ini")
+trepalce("max_execution_time = 30","max_execution_time = -1","/etc/php/7.1/apache2/php.ini")
+trepalce("max_input_time​= 60","max_input_time = -1","/etc/php/7.1/apache2/php.ini")
+trepalce("memory_limit = 128M","memory_limit​= -1","/etc/php/7.1/apache2/php.ini")
+trepalce("upload_max_filesize = 2M","upload_max_filesize = 5000M","/etc/php/7.1/apache2/php.ini")
+trepalce("post_max_size = 8M","post_max_size​ =3000M","/etc/php/7.1/apache2/php.ini")
 
 
 time.sleep(2)

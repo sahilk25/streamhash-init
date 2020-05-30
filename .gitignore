@@ -3,3 +3,4 @@ streamview-website.zip
 .vscode
 .idea
 __pycache__
+db.sh
