@@ -1,2 +1,5 @@
 streamview-website
 streamview-website.zip
+.vscode
+.idea
+__pycache__

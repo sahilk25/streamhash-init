@@ -33,7 +33,7 @@ s/upload_max_filesize = 2M/upload_max_filesize = 2048M/g" /etc/php/7.1/apache2/p
 sudo systemctl restart apache2
 
 sudo sed -i "s/AllowOverride None/AllowOverride All/3" /etc/apache2/apache2.conf
-echo "Include /etc/phpmyadmin/apache.conf"  | tee -a /etc/apache2/apache2.conf
+echo "Include /etc/phpmyadmin/apache.conf"  | tee -a /etc/apache2/apache2.conf   #(apeend)
 sudo systemctl restart apache2
 sudo apt-get install unzip
 cd
