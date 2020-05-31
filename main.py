@@ -8,7 +8,7 @@ import shutil
 repo_list=["ppa:ondrej/php","ppa:chris-lea/redis-server"]
 package_list=["apache2", "mysql-server", "php7.3", "php7.3-cli php7.1-mysql php7.1-xml  php7.1-mbstring php7.1-gettext php7.1-curl \
     php7.1-common php7.1-opcache php7.1-readline php7.1-mcrypt php7.1-zip", "phpmyadmin php-mbstring php-gettext", "unzip composer ffmpeg nodejs build-essential", \
-    "redis-server"]
+    "redis-server","composer"]
 
 
 #unzipping the website
@@ -59,3 +59,11 @@ trepalce("post_max_size = 8M","post_max_size​ =3000M","/etc/php/7.1/apache2/ph
 
 time.sleep(2)
 some_perm()
+#composer
+print("comoser streamview-backend")
+
+#updating ufw
+print("updating ufw")
+ufw_conf()
+
+
