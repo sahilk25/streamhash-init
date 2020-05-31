@@ -6,15 +6,25 @@ from command import *
 import shutil 
 
 repo_list=["ppa:ondrej/php","ppa:chris-lea/redis-server"]
-package_list=["apache2", "mysql-server", "php7.3", "php7.3-cli php7.1-mysql php7.1-xml  php7.1-mbstring php7.1-gettext php7.1-curl \
-    php7.1-common php7.1-opcache php7.1-readline php7.1-mcrypt php7.1-zip", "phpmyadmin php-mbstring php-gettext", "unzip composer ffmpeg nodejs build-essential", \
-    "redis-server","composer"]
+package_list=["apache2", "mysql-server", "php7.1", "php7.1-cli php7.1-mysql php7.1-xml  php7.1-mbstring php7.1-gettext php7.1-curl \
+    php7.1-common php7.1-opcache php7.1-readline php7.1-mcrypt php7.1-zip", "phpmyadmin php-mbstring php-gettext", "unzip composer ffmpeg nodejs", "build-essential", \
+    "redis-server"]
 
 
+
+
+
+#repo installation
+repo_install(repo_list)
+
+#checking packages
+is_installed(package_list)
+
+#installing packages
+install(not_installed)
 #unzipping the website
 print("Unzipping the website and adding to it's destination")
-is_website_exists=path.exists("~/website.zip")
-gg=path.exists("~/website.zip")
+is_website_exists=path.exists("/home/alpha/website.zip")
 if is_website_exists ==True:
     print("zip exists")
     subprocess.run("sudo unzip website.zip -d /var/www/html/",shell=True)
@@ -28,19 +38,9 @@ else:
 
 
 
-
-#repo installation
-repo_install(repo_list)
-
-#checking packages
-is_installed(package_list)
-
-#installing packages
-install(not_installed)
-
 #making changes to msql
 print("Configuring mysql")
-subprocess.check_call(["./db.sh"])
+#mysql_conf()
 
 
 time.sleep(2)

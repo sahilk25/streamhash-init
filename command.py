@@ -9,7 +9,7 @@ not_installed=[]
 installed=[]
 
 def mysql_conf():
-    subprocess.check_call(["./db.sh"])
+    subprocess.check_call(["./streamhash-init/db.sh"])
 
 
 def some_perm():
@@ -33,19 +33,19 @@ def restart_apa():
 def update_apa():
     print("updating apache2 conf files")
 
-    trepalce("DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm","DirectoryIndex index.php index.cgi index.pl index.html index.xhtml index.htm","/home/alpha/Desktop/stream hash/dir.conf")
+    trepalce("DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm","DirectoryIndex index.php index.cgi index.pl index.html index.xhtml index.htm","/etc/apache2/mods-enabled/dir.conf")
     restart_apa()
-    trepalce("AllowOverride None","AllowOverride All","/home/alpha/Desktop/stream hash/apache2.conf",occ=3)
+    trepalce("AllowOverride None","AllowOverride All","/etc/apache2/apache2.conf",occ=3)
     restart_apa()
-    shutil.copy2("/etc/apache2/sites-available/000-default.conf", "/etc/apache2/sites-available/000-default.conf/frontend.conf")
-    shutil.copy2("/etc/apache2/sites-available/000-default.conf", "/etc/apache2/sites-available/000-default.conf/backend.conf")
-    trepalce("#ServerName www.example.com","ServerName backend-domain.com","/etc/apache2/sites-available/000-default.conf/backend.conf")
-    trepalce("DocumentRoot /var/www/html","DocumentRoot /var/www/html/streamview-backend/public","/etc/apache2/sites-available/000-default.conf/backend.conf")
-    trepalce("#ServerName www.example.com","ServerName frontend-domain.com","/etc/apache2/sites-available/000-default.conf/frontend.conf")
-    trepalce("DocumentRoot /var/www/html","DocumentRoot /var/www/html/streamview-frontend","/etc/apache2/sites-available/000-default.conf/frontend.conf")
+    shutil.copy2("/etc/apache2/sites-available/000-default.conf", "/etc/apache2/sites-available/frontend.conf")
+    shutil.copy2("/etc/apache2/sites-available/000-default.conf", "/etc/apache2/sites-available/backend.conf")
+    trepalce("#ServerName www.example.com","ServerName backend-domain.com","/etc/apache2/sites-available/backend.conf")
+    trepalce("DocumentRoot /var/www/html","DocumentRoot /var/www/html/streamview-backend/public","/etc/apache2/sites-available/backend.conf")
+    trepalce("#ServerName www.example.com","ServerName frontend-domain.com","/etc/apache2/sites-available/frontend.conf")
+    trepalce("DocumentRoot /var/www/html","DocumentRoot /var/www/html/streamview-frontend","/etc/apache2/sites-available/frontend.conf")
     restart_apa()
-    subprocess.run("sudo phpenmod mcrypt")
-    subprocess.run("sudo phpenmod mbstring")
+    subprocess.run("sudo phpenmod mcrypt", shell=True)
+    subprocess.run("sudo phpenmod mbstring", shell=True)
 
     subprocess.run("sudo a2ensite frontend",shell=True)
     subprocess.run("sudo a2ensite backend",shell=True)
@@ -53,10 +53,10 @@ def update_apa():
     restart_apa()
 
 def repo_install(l3):
-    subprocess.run("sudo apt update && upgrade -y")
+    subprocess.run("sudo apt update -y", shell=True)
     for i in l3:
-        subprocess.run("sudo add-apt-repository -y" + " " + i)
-        subprocess.run("sudo apt update -y")
+        subprocess.run("sudo add-apt-repository -y" + " " + i, shell=True)
+        subprocess.run("sudo apt update -y", shell=True)
 
 
 
@@ -66,7 +66,7 @@ def is_installed(l1):
     time.sleep(2)
 
     for pak in l1:
-        gg = subprocess.check_output(["./as.py", pak])
+        gg = subprocess.check_output(["./streamhash-init/as.py", pak])
 
         if gg == b'Package  is NOT installed!\n':
             not_installed.append(pak)
@@ -87,22 +87,26 @@ def install(l2):
     print("if you want to install press y else press any key")
     a=input(str)
     if a == "y":
-        subprocess.run("sudo apt update && upgrade -y")
-        for x in l2:
-            subprocess.run("sudo apt install -y" + " " + l2, shell=True)
-            time.sleep(1)
-            print(l2 + "installed")
+        subprocess.run("sudo apt update -y", shell=True)
+        if len(l2) != 0:
+            for x in l2:
+                subprocess.run("sudo apt install -y" + " " + x, shell=True)
+                time.sleep(2)
+                print(x + "installed")
+                time.sleep(2)
+        else:
+            return None
     else: 
-        return 0
+        sys.exit()
 
 
 def composer():
-    subprocess.run("cd /var/www/html/streamview-backend && sudo composer dump-autoload")
-    subprocess.run("cd /var/www/html/streamview-backend && php artisan view:clear")
-    subprocess.run("cd /var/www/html/streamview-backend && phpartisan config:clear")
-    subprocess.run("cd /var/www/html/streamview-backend && phpartisan cache:clear")
-    subprocess.run("cd /var/www/html/streamview-backend && phpartisan config:cache")
-    subprocess.run("cd /var/www/html/streamview-backend && cp app/ffmpeg-custom/olaferlandsen/ffmpeg-php-class/src/FFmpeg.php vendor/vidhyar2612/ffmpeg-php-class/src/FFmpeg.php")
+    subprocess.run("cd /var/www/html/streamview-backend && sudo composer dump-autoload", shell=True)
+    subprocess.run("cd /var/www/html/streamview-backend && php artisan view:clear", shell=True)
+    subprocess.run("cd /var/www/html/streamview-backend && phpartisan config:clear", shell=True)
+    subprocess.run("cd /var/www/html/streamview-backend && phpartisan cache:clear", shell=True)
+    subprocess.run("cd /var/www/html/streamview-backend && phpartisan config:cache", shell=True)
+    subprocess.run("cd /var/www/html/streamview-backend && cp app/ffmpeg-custom/olaferlandsen/ffmpeg-php-class/src/FFmpeg.php vendor/vidhyar2612/ffmpeg-php-class/src/FFmpeg.php", shell=True)
 
 
 
@@ -163,12 +167,12 @@ def append_multiple_lines(lines_to_append, file_name):
 
 
 def ufw_conf():
-    subprocess.run("sudo touch /etc/ufw/applications.d/redis")
+    subprocess.run("sudo touch /etc/ufw/applications.d/redis", shell=True)
     redisfile=["[Redis]","title=Persistent key-value database with network interface","description=Redis is a key-value database \
          in a similar vein to memcache but the dataset is non-volatile.", "ports=6379/tcp"]
     append_multiple_lines(redisfile,"/etc/ufw/applications.d/redis")
-    subprocess.run("sudo ufw app update Redis")
-    subprocess.run("sudo systemctl restart ufw")
+    subprocess.run("sudo ufw app update Redis", shell=True)
+    subprocess.run("sudo systemctl restart ufw", shell=True)
 
 
 
