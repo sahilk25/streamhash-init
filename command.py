@@ -10,6 +10,8 @@ installed=[]
 
 def mysql_conf():
     subprocess.check_call(["./streamhash-init/db.sh"])
+    trepalce("DB_DATABASE=streamview","DB_DATABASE=streamhash","/var/www/html/streamview-backend/.env",occ=3)
+    trepalce("DB_PASSWORD=12345","DB_PASSWORD=streamhash@123","/var/www/html/streamview-backend/.env",occ=3)
 
 
 def some_perm():
