@@ -40,8 +40,16 @@ def update_apa():
     restart_apa()
     trepalce("AllowOverride None","AllowOverride All","/etc/apache2/apache2.conf",occ=3)
     restart_apa()
-    shutil.copy2("/etc/apache2/sites-available/000-default.conf", "/etc/apache2/sites-available/frontend.conf")
-    shutil.copy2("/etc/apache2/sites-available/000-default.conf", "/etc/apache2/sites-available/backend.conf")
+    file_1=path.exists("/etc/apache2/sites-available/frontend.conf")
+    if file_1==True:
+        None
+    else:
+        shutil.copy2("/etc/apache2/sites-available/000-default.conf", "/etc/apache2/sites-available/frontend.conf")
+    file_2=path.exists("/etc/apache2/sites-available/backend.conf")
+    if file_2==True:
+        None
+    else:
+        shutil.copy2("/etc/apache2/sites-available/000-default.conf", "/etc/apache2/sites-available/backend.conf")
     trepalce("#ServerName www.example.com","ServerName backend-domain.com","/etc/apache2/sites-available/backend.conf")
     trepalce("DocumentRoot /var/www/html","DocumentRoot /var/www/html/streamview-backend/public","/etc/apache2/sites-available/backend.conf")
     trepalce("#ServerName www.example.com","ServerName frontend-domain.com","/etc/apache2/sites-available/frontend.conf")
@@ -186,7 +194,19 @@ def ufw_conf():
 
 
 
-    
+def npm_conf():
+    subprocess.run("curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash")
+    subprocess.run("nvm install v10")
+    subprocess.run("npm install yarn")
+    subprocess.run("sudo chown $USER:$USER -R /var/www/html/")
+    subprocess.run("cd /var/www/html/streamview-frontend && yarn install ")
+    subprocess.run("cd /var/www/html/streamview-frontend && npm install")
 
     
+    
+    
+    
+    
+
+
     

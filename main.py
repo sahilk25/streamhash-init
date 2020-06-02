@@ -9,7 +9,7 @@ from termcolor import colored
 repo_list=["ppa:ondrej/php","ppa:chris-lea/redis-server"]
 package_list=["apache2", "mysql-server", "php7.1", "php7.1-cli php7.1-mysql php7.1-xml  php7.1-mbstring php7.1-gettext php7.1-curl \
     php7.1-common php7.1-opcache php7.1-readline php7.1-mcrypt php7.1-zip", "phpmyadmin php-mbstring php-gettext", "unzip composer ffmpeg nodejs", "build-essential", \
-    "redis-server"]
+    "redis-server,python"]
 
 
 
@@ -76,4 +76,5 @@ print(colored('comoser streamview-backend','green'))
 print(colored('updating ufw','green'))
 ufw_conf()
 
-
+print(colored('configuring frontend npm','green'))
+npm_conf()
