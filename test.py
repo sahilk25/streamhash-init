@@ -1,3 +1,2 @@
-import subprocess
-
-subprocess.check_call(["./db.sh"])
+from termcolor import colored
+print(colored('zip exists','green'))

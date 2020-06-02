@@ -4,6 +4,7 @@ import time
 import os
 import sys
 import shutil
+from os import path
 
 not_installed=[]
 installed=[]
@@ -56,10 +57,14 @@ def update_apa():
 
 def repo_install(l3):
     subprocess.run("sudo apt update -y", shell=True)
-    for i in l3:
-        subprocess.run("sudo add-apt-repository -y" + " " + i, shell=True)
-        subprocess.run("sudo apt update -y", shell=True)
-
+    path_1=path.exists("/etc/apt/sources.list.d/chris-lea-ubuntu-redis-server-bionic.list")
+    path_2=path.exists("/etc/apt/sources.list.d/ondrej-ubuntu-php-bionic.list")
+    if path_1==True and path_2==True: 
+        for i in l3:
+            subprocess.run("sudo add-apt-repository -y" + " " + i, shell=True)
+            subprocess.run("sudo apt update -y", shell=True)
+    else: 
+        None
 
 
 def is_installed(l1):
@@ -100,7 +105,8 @@ def install(l2):
             return None
     else: 
         sys.exit()
-
+    subprocess.run("sudo systemctl enable redis-server mysql apache2")
+    subprocess.run("sudo systemctl restart redis-server mysql apache2")
 
 def composer():
     subprocess.run("cd /var/www/html/streamview-backend && sudo composer dump-autoload", shell=True)
@@ -179,3 +185,8 @@ def ufw_conf():
 
 
 
+
+    
+
+    
+    
