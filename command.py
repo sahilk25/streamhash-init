@@ -195,12 +195,12 @@ def ufw_conf():
 
 
 def npm_conf():
-    subprocess.run("curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash")
-    subprocess.run("nvm install v10")
-    subprocess.run("npm install yarn")
-    subprocess.run("sudo chown $USER:$USER -R /var/www/html/")
-    subprocess.run("cd /var/www/html/streamview-frontend && yarn install ")
-    subprocess.run("cd /var/www/html/streamview-frontend && npm install")
+    subprocess.run("curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash", shell=True)
+    subprocess.run("nvm install v10", shell=True)
+    subprocess.run("npm install yarn", shell=True)
+    subprocess.run("sudo chown $USER:$USER -R /var/www/html/", shell=True)
+    subprocess.run("cd /var/www/html/streamview-frontend && yarn install ", shell=True)
+    subprocess.run("cd /var/www/html/streamview-frontend && npm install", shell=True)
 
     
     
