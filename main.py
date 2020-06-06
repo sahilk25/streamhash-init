@@ -9,7 +9,7 @@ from termcolor import colored
 repo_list=["ppa:ondrej/php","ppa:chris-lea/redis-server"]
 package_list=["apache2", "mysql-server", "php7.1", "php7.1-cli php7.1-mysql php7.1-xml  php7.1-mbstring php7.1-gettext php7.1-curl \
     php7.1-common php7.1-opcache php7.1-readline php7.1-mcrypt php7.1-zip", "phpmyadmin php-mbstring php-gettext", "unzip composer ffmpeg nodejs", "build-essential", \
-    "redis-server,python"]
+    "redis-server","python"]
 
 
 
@@ -28,7 +28,7 @@ print(colored('Unzipping the website and adding to itss destination','green'))
 is_zip_exists=path.exists("/home/alpha/website.zip")
 website_front=path.exists("/var/www/html/streamview-frontend")
 website_back=path.exists("/var/www/html/streamview-backend")
-if website_back==True and website_front==True:
+if website_back==False and website_front==False:
     if is_zip_exists ==True:
         print("zip exists")
         print(colored('zip exists','green'))
@@ -41,7 +41,8 @@ if website_back==True and website_front==True:
         
         print(colored('zip file doesnt exist','red'))
         sys.exit()
-
+else:
+    None
 
 
 #making changes to msql

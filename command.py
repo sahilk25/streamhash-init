@@ -67,7 +67,7 @@ def repo_install(l3):
     subprocess.run("sudo apt update -y", shell=True)
     path_1=path.exists("/etc/apt/sources.list.d/chris-lea-ubuntu-redis-server-bionic.list")
     path_2=path.exists("/etc/apt/sources.list.d/ondrej-ubuntu-php-bionic.list")
-    if path_1==True and path_2==True: 
+    if path_1==False and path_2==False: 
         for i in l3:
             subprocess.run("sudo add-apt-repository -y" + " " + i, shell=True)
             subprocess.run("sudo apt update -y", shell=True)
@@ -113,8 +113,8 @@ def install(l2):
             return None
     else: 
         sys.exit()
-    subprocess.run("sudo systemctl enable redis-server mysql apache2")
-    subprocess.run("sudo systemctl restart redis-server mysql apache2")
+    subprocess.run("sudo systemctl enable redis-server mysql apache2",shell=True)
+    subprocess.run("sudo systemctl restart redis-server mysql apache2",shell=True)
 
 def composer():
     subprocess.run("cd /var/www/html/streamview-backend && sudo composer dump-autoload", shell=True)
@@ -195,18 +195,19 @@ def ufw_conf():
 
 
 def npm_conf():
-    subprocess.run("curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash", shell=True)
-    subprocess.run("nvm install v10", shell=True)
-    subprocess.run("npm install yarn", shell=True)
-    subprocess.run("sudo chown $USER:$USER -R /var/www/html/", shell=True)
-    subprocess.run("cd /var/www/html/streamview-frontend && yarn install ", shell=True)
-    subprocess.run("cd /var/www/html/streamview-frontend && npm install", shell=True)
+    subprocess.run("cd /home/alpha && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash", shell=True)
+    subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh && nvm install v10 -g",shell=True)
+#     subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh && npm install yarn", shell=True)
+#     subprocess.run("sudo chown $USER:$USER -R /var/www/html/", shell=True)
+#     subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh &&  yarn install ", shell=True)
+#     subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh &&  npm install", shell=True)
 
     
     
     
     
-    
+   
+
 
 
     
