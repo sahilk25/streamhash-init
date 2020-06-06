@@ -195,9 +195,11 @@ def ufw_conf():
 
 
 def npm_conf():
-    subprocess.run("cd /home/alpha && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash", shell=True)
-    subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh && nvm install v10 -g",shell=True)
-#     subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh && npm install yarn", shell=True)
+    subprocess.run("cd /home/ubuntu && sudo -u ubuntu curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash", shell=True)
+    # subprocess.run("sudo​ npm install -g cli-react",shell=True)
+    subprocess.run(". /home/ubuntu/.nvm/nvm.sh && sudo -u ubuntu nvm install v10 -g",shell=True)
+    subprocess.run("cd /var/www/html/streamview-frontend && . /home/ubuntu/.nvm/nvm.sh && /home/ubuntu/.nvm/versions/node/v10.21.0/bin/npm install yarn -g",shell=True)
+    # subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh && npm install yarn", shell=True)
 #     subprocess.run("sudo chown $USER:$USER -R /var/www/html/", shell=True)
 #     subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh &&  yarn install ", shell=True)
 #     subprocess.run("cd /var/www/html/streamview-frontend && . /home/alpha/.nvm/nvm.sh &&  npm install", shell=True)

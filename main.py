@@ -25,7 +25,7 @@ is_installed(package_list)
 install(not_installed)
 #unzipping the website
 print(colored('Unzipping the website and adding to itss destination','green'))
-is_zip_exists=path.exists("/home/alpha/website.zip")
+is_zip_exists=path.exists("/home/ubuntu/website.zip")
 website_front=path.exists("/var/www/html/streamview-frontend")
 website_back=path.exists("/var/www/html/streamview-backend")
 if website_back==False and website_front==False:
